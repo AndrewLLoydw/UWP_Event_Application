@@ -26,5 +26,37 @@ namespace EventApp
         {
             this.InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            inputRegisterUser.Visibility = Visibility.Visible;
+            showUserInformationLW.Visibility = Visibility.Collapsed;
+            btnCloseUserInfoLW.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnGenerateCode_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
+        {
+            inputRegisterUser.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnClickShowList_Click(object sender, RoutedEventArgs e)
+        {
+            showUserInformationLW.Visibility = Visibility.Visible;
+            btnCloseUserInfoLW.Visibility = Visibility.Visible;
+            inputRegisterUser.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnCloseUserInfoLW_Click(object sender, RoutedEventArgs e)
+        {
+            showUserInformationLW.Visibility = Visibility.Collapsed;
+            btnCloseUserInfoLW.Visibility = Visibility.Collapsed;
+            inputRegisterUser.Visibility = Visibility.Collapsed;
+
+        }
     }
 }
