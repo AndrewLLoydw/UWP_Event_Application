@@ -36,7 +36,12 @@ namespace EventApp
 
         private void btnGenerateCode_Click(object sender, RoutedEventArgs e)
         {
-            
+            Random rnd = new Random();
+            int generateNum = rnd.Next(10000000, 99999999);
+
+            generatedCode.Text = generateNum.ToString();
+
+
         }
 
         private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)

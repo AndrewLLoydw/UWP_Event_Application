@@ -45,7 +45,7 @@
 
         <StackPanel Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <TextBlock x:Name="generatedCode" Text="" FontSize="20" HorizontalAlignment="Center"/> 
-            <Button x:Name="btnGenerateCode" Content="Generera Rabattkod" Margin="0, 0, 0, 0" Click="btnGenerateCode_Click"/>
+            <Button x:Name="btnGenerateCode" Content="Generera Rabattkod" Margin="0, 20, 0, 0" Click="btnGenerateCode_Click"/>
         </StackPanel>
 
         <Button x:Name="btnCloseUserInfoLW" Grid.Column="1" Grid.Row="0" Content="Stäng lista" FontSize="20" HorizontalAlignment="Center" Click="btnCloseUserInfoLW_Click" Margin="0,0,0,0" Visibility="Collapsed"/>
