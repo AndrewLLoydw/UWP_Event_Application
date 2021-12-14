@@ -18,12 +18,30 @@ namespace EventApp
 
     enum savedStatus
     {
-        Saving,
-        Saved
+        Added,
+        Removed
 
     }
+
     public sealed partial class MainPage : Page
     {
+        private string ChangeStatusText(savedStatus status)
+        {
+            switch (status)
+            {
+                case savedStatus.Added:
+                    return "Du har lagts till i evenemanget...";
+
+                case savedStatus.Removed:
+                    return "Du har tagits bort från evenemanget...";
+
+                default:
+                    return "";
+            }
+        }
+
+        private static string _savedStatus;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -36,7 +54,7 @@ namespace EventApp
             registerUsersText.Visibility=Visibility.Visible;
             listUsersText.Visibility = Visibility.Collapsed;
             showUserInformationLW.Visibility = Visibility.Collapsed;
-            savedUserRegister.Visibility = Visibility.Collapsed;
+
 
         }
 
@@ -52,7 +70,7 @@ namespace EventApp
 
         private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
         {
-
+            userStatusMessage.Text = ChangeStatusText(savedStatus.Added);
 
 
 
@@ -60,7 +78,7 @@ namespace EventApp
             userLastNameInput.Text = "";
             userEmailInput.Text = "";
             userAllergicInput.Text = "";
-            savedUserRegister.Visibility = Visibility.Visible;
+
         }
 
         private void btnClickShowList_Click(object sender, RoutedEventArgs e)
@@ -70,7 +88,6 @@ namespace EventApp
             listUsersText.Visibility = Visibility.Visible;
             inputRegisterUser.Visibility = Visibility.Collapsed;
             registerUsersText.Visibility = Visibility.Collapsed;
-            savedUserRegister.Visibility = Visibility.Collapsed;
         }
 
         private void btnCloseUserInfoLW_Click(object sender, RoutedEventArgs e)
@@ -80,13 +97,17 @@ namespace EventApp
             inputRegisterUser.Visibility = Visibility.Collapsed;
             listUsersText.Visibility = Visibility.Collapsed;
             registerUsersText.Visibility = Visibility.Collapsed;
-            savedUserRegister.Visibility = Visibility.Collapsed;
 
         }
 
         private void btnDeleteUserInfo_Click(object sender, RoutedEventArgs e)
         {
+            userStatusMessage.Text = ChangeStatusText(savedStatus.Removed);
+
 
         }
+
+
+       
     }
 }

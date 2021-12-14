@@ -20,12 +20,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0">
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Jobb-Konferens" FontSize="40" FontWeight="Medium" HorizontalAlignment="Center" Margin="0,10,0,10"/>
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Välj ett av följande alternativ nedan" FontSize="16" Margin="0, 20, 0, 50" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Välj ett av följande alternativ nedan" FontSize="16" Margin="0, 20, 0, 0" HorizontalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel x:Name="registerUsersText" Grid.Column="1" Visibility="Collapsed">
@@ -35,6 +35,8 @@
         <StackPanel x:Name="listUsersText" Grid.Column="1" Visibility="Collapsed">
             <TextBlock Grid.Column="1" Grid.Row="0" Text="Lista över deltagare" FontSize="40" FontWeight="Medium" HorizontalAlignment="Center" Margin="0,10,0,10"/>
         </StackPanel>
+
+        <Button x:Name="btnCloseUserInfoLW" Grid.Column="1" Grid.Row="0" Content="Stäng fönster" FontSize="20" HorizontalAlignment="Center" Click="btnCloseUserInfoLW_Click" Margin="0,75,0,0" Visibility="Collapsed"/>
 
         <StackPanel Grid.Column="0" Grid.Row="2" Margin="0, 40, 0, 100">
             <TextBlock Text="Registrera en ny deltagare" FontSize="30" FontWeight="Light" HorizontalAlignment="Center"/>
@@ -47,12 +49,11 @@
         </StackPanel>
 
         <StackPanel Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <TextBlock Text="Generera rabattkod" FontSize="30" FontWeight="Light" HorizontalAlignment="Center"/> 
+            <TextBlock Text="Generera rabattkod" FontSize="30" FontWeight="Light" HorizontalAlignment="Center"/>
             <Button x:Name="btnGenerateCode" Content="Tryck här" Margin="0, 20, 0, 20" Click="btnGenerateCode_Click" Width="250" Height="40" HorizontalAlignment="Center"/>
             <TextBox x:Name="generatedCode" Text="" FontSize="20" HorizontalAlignment="Center" Width="250"/>
+            <TextBlock x:Name="userStatusMessage" Text="" FontSize="16" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,100,0,0"/>
         </StackPanel>
-
-        <Button x:Name="btnCloseUserInfoLW" Grid.Column="1" Grid.Row="0" Content="Stäng fönster" FontSize="20" HorizontalAlignment="Center" Click="btnCloseUserInfoLW_Click" Margin="0,30,0,0" Visibility="Collapsed"/>
 
         <StackPanel x:Name="inputRegisterUser" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" Visibility="Collapsed" Margin="0, 40, 0, 0"  HorizontalAlignment="Center">
             <TextBlock Text="Vänligen fyll i dina uppgifter" FontSize="30" FontWeight="Light" HorizontalAlignment="Center"/>
@@ -65,12 +66,9 @@
             <TextBlock Text="Har du någon allergi?" FontSize="16" FontWeight="Light"/>
             <TextBox x:Name="userAllergicInput" Text="" Margin="0, 20, 0, 10"/>
             <Button x:Name="btnRegisterUserDone" Content="Tryck här" Width="250" Height="auto" Margin="0, 40, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="btnRegisterUserDone_Click"/>
-            <TextBlock x:Name="savedUserRegister" Text="Sparat" FontSize="12" FontWeight="Light" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0, 10,0,0"/>
         </StackPanel>
 
-        
-        
-        <ListView x:Name="showUserInformationLW" Grid.Column="1" Grid.Row="2" Grid.RowSpan="5">
+        <ListView x:Name="showUserInformationLW" Grid.Column="1" Grid.Row="2" Grid.RowSpan="5" Visibility="Collapsed" Margin="0,30,0,0">
             <ListViewItem HorizontalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -78,29 +76,28 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                    
+
                         <TextBlock x:Name="userFullNameLW" Grid.Row="0" Text="André Lillhannus" FontSize="16"/>
                         <TextBlock x:Name="userEmailLW" Grid.Row="1" Text="adde.l@live.se" FontWeight="Light"/>
                         <TextBlock x:Name="userAllergicNeeds" Grid.Row="2" Text="Allergi: Nötter" FontSize="13" FontWeight="Light"/>
-                    
+
                     </Grid>
-                                               
-                    <Button x:Name="btnDeleteUserInfo" Grid.Column="1" Content="Ta bort" Margin="500,0,0,0" HorizontalAlignment="Stretch" Click="btnDeleteUserInfo_Click"/>
-                    <TextBlock/>
+
+                    <Button x:Name="btnDeleteUserInfo" Grid.Column="1" Content="Ta bort" Margin="500,0,0,0" HorizontalAlignment="Stretch" Click="btnDeleteUserInfo_Click" VerticalAlignment="Center"/>
 
                 </Grid>
-                
+
             </ListViewItem>
             
         </ListView>
-        
+
     </Grid>
     
 </Page>
