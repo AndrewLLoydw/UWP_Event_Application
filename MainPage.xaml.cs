@@ -13,13 +13,15 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace EventApp
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
+    enum savedStatus
+    {
+        Saving,
+        Saved
+
+    }
     public sealed partial class MainPage : Page
     {
         public MainPage()
@@ -30,8 +32,12 @@ namespace EventApp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             inputRegisterUser.Visibility = Visibility.Visible;
+            btnCloseUserInfoLW.Visibility = Visibility.Visible;
+            registerUsersText.Visibility=Visibility.Visible;
+            listUsersText.Visibility = Visibility.Collapsed;
             showUserInformationLW.Visibility = Visibility.Collapsed;
-            btnCloseUserInfoLW.Visibility = Visibility.Collapsed;
+            savedUserRegister.Visibility = Visibility.Collapsed;
+
         }
 
         private void btnGenerateCode_Click(object sender, RoutedEventArgs e)
@@ -46,14 +52,25 @@ namespace EventApp
 
         private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
         {
-            inputRegisterUser.Visibility = Visibility.Collapsed;
+
+
+
+
+            userFirstNameInput.Text = "";
+            userLastNameInput.Text = "";
+            userEmailInput.Text = "";
+            userAllergicInput.Text = "";
+            savedUserRegister.Visibility = Visibility.Visible;
         }
 
         private void btnClickShowList_Click(object sender, RoutedEventArgs e)
         {
             showUserInformationLW.Visibility = Visibility.Visible;
             btnCloseUserInfoLW.Visibility = Visibility.Visible;
+            listUsersText.Visibility = Visibility.Visible;
             inputRegisterUser.Visibility = Visibility.Collapsed;
+            registerUsersText.Visibility = Visibility.Collapsed;
+            savedUserRegister.Visibility = Visibility.Collapsed;
         }
 
         private void btnCloseUserInfoLW_Click(object sender, RoutedEventArgs e)
@@ -61,6 +78,14 @@ namespace EventApp
             showUserInformationLW.Visibility = Visibility.Collapsed;
             btnCloseUserInfoLW.Visibility = Visibility.Collapsed;
             inputRegisterUser.Visibility = Visibility.Collapsed;
+            listUsersText.Visibility = Visibility.Collapsed;
+            registerUsersText.Visibility = Visibility.Collapsed;
+            savedUserRegister.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void btnDeleteUserInfo_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
