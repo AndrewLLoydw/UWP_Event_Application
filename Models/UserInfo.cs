@@ -8,9 +8,10 @@ namespace EventApp.Models
 {
     internal class UserInfo
     {
-        public string UserFullName { get; set; }
-        public string UserEmail { get; set; }
-        public string UserAllergies { get; set; }
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Allergies { get; set; }
+        public string DiscountCode { get; set; }
 
     }
 }
