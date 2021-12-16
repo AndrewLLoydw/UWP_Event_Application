@@ -70,9 +70,9 @@
             <Button x:Name="btnRegisterUserDone" Content="Tryck här" Width="250" Height="auto" Margin="0, 40, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="btnRegisterUserDone_Click"/>
         </StackPanel>
 
-        <ListView x:Name="lvUsers" DataContext="EventApp.Models.UserInfo" Grid.Column="1" Grid.Row="2" Grid.RowSpan="5" Visibility="Collapsed" Margin="0,30,0,0">
-            
-            <ListViewItem HorizontalAlignment="Center">
+        <ListView x:Name="lvUsers" DataContext="EventApp.Models.UserInfo" Grid.Column="1" Grid.Row="2" Grid.RowSpan="5" Visibility="Collapsed" Margin="0,30,0,0" HorizontalAlignment="Center">
+
+            <ListView.ItemTemplate>
                 
                 <DataTemplate>
                     
@@ -97,13 +97,13 @@
                         </Grid>
 
                         <TextBlock x:Name="userDiscountCodeLW" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding DiscountCode}" Margin="0,0,0,0" FontSize="14" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button x:Name="btnDeleteUserInfo" Grid.Column="1" Grid.ColumnSpan="2" Content="Ta bort" Margin="500,0,0,0" HorizontalAlignment="Stretch" Click="btnDeleteUserInfo_Click" VerticalAlignment="Center"/>
+                        <Button x:Name="btnDeleteUserInfo" Grid.Column="1" Grid.ColumnSpan="2" Content="Ta bort" Margin="500,0,0,0" HorizontalAlignment="Center" Click="btnDeleteUserInfo_Click" VerticalAlignment="Center"/>
 
                     </Grid>
                     
                 </DataTemplate>
-                
-            </ListViewItem>
+
+            </ListView.ItemTemplate>
             
         </ListView>
 

@@ -43,7 +43,16 @@ namespace EventApp
 
         public MainPage()
         {
+           
+
+
+            // * File.WriteAllText(Filename, "")
+
+            //* File.AppendText
+
+
             this.InitializeComponent();
+            
         }
 
         public void Button_Click(object sender, RoutedEventArgs e)
@@ -69,6 +78,12 @@ namespace EventApp
 
         private void btnDeleteUserInfo_Click(object sender, RoutedEventArgs e)
         {
+
+            var obj = (Button)sender;
+            var item = (UserInfo)obj.DataContext;
+
+            lvUsers.Items.Remove(item);
+
             userStatusMessage.Text = ChangeStatusText(savedStatus.Removed);
 
 
@@ -130,17 +145,26 @@ namespace EventApp
         {
             if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
             {
-                var user = new UserInfo{ FullName=$"{tbFirstName.Text} {tbLastName.Text}", Email = tbEmail.Text, Allergies = tbAllergies.Text, DiscountCode = tbDiscount.Text};
+                var user = new UserInfo{ FullName=$"{tbFirstName.Text} {tbLastName.Text}", Email = tbEmail.Text, Allergies = "Allergi: " + tbAllergies.Text, DiscountCode = "Rabattkod: " + tbDiscount.Text};
 
                 lvUsers.Items.Add(user);
 
                 tbFirstName.Text = ""; tbLastName.Text = ""; tbEmail.Text = ""; tbAllergies.Text = ""; tbDiscount.Text = "";
 
+                File.AppendAllText("C:\\EventAppDeltagare.txt", tbFirstName.Text);
+
             }
 
         }
 
-        //Method to send user to list
+        public void RemoveUser()
+        { 
+
+            
+        }
+
+
+
 
 
     }
