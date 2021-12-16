@@ -64,9 +64,7 @@ namespace EventApp
 
             if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
             {
-                var user = new UserInfo { FirstName = tbFirstName.Text, LastName = tbLastName.Text, Email = tbEmail.Text, Allergies = "Allergi: " + tbAllergies.Text, DiscountCode = "Rabattkod: " + tbDiscount.Text };
-
-                lvUsers.Items.Add(user);
+                var user = new UserInfo { FirstName = tbFirstName.Text, LastName = tbLastName.Text, Email = tbEmail.Text, Allergies = tbAllergies.Text ?? "", DiscountCode = tbDiscount.Text ?? "" };
 
                 lvUsers.ItemsSource = users;
 
