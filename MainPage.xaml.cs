@@ -39,20 +39,17 @@ namespace EventApp
                 default:
                     return "";
             }
-        }
+    }
+
+        private static List<UserInfo> users = new List<UserInfo>();
 
         public MainPage()
         {
-           
-
-
-            // * File.WriteAllText(Filename, "")
-
-            //* File.AppendText
-
-
             this.InitializeComponent();
-            
+
+            if (users.Count > 0)
+                lvUsers.ItemsSource = users;
+
         }
 
         public void Button_Click(object sender, RoutedEventArgs e)
@@ -65,7 +62,19 @@ namespace EventApp
         private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
         {
 
-            CreateUser(tbFirstName.Text, tbLastName.Text, tbEmail.Text, tbAllergies.Text, tbDiscount.Text);
+            if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
+            {
+                var user = new UserInfo { FirstName = tbFirstName.Text, LastName = tbLastName.Text, Email = tbEmail.Text, Allergies = "Allergi: " + tbAllergies.Text, DiscountCode = "Rabattkod: " + tbDiscount.Text };
+
+                lvUsers.Items.Add(user);
+
+                lvUsers.ItemsSource = users;
+
+                tbFirstName.Text = ""; tbLastName.Text = ""; tbEmail.Text = ""; tbAllergies.Text = ""; tbDiscount.Text = "";
+
+            }
+
+
 
             userStatusMessage.Text = ChangeStatusText(savedStatus.Added);
 
@@ -106,7 +115,7 @@ namespace EventApp
         {
             inputRegisterUser.Visibility = Visibility.Visible;
             btnCloseUserInfoLW.Visibility = Visibility.Visible;
-            registerUsersText.Visibility=Visibility.Visible;
+            registerUsersText.Visibility = Visibility.Visible;
             listUsersText.Visibility = Visibility.Collapsed;
             lvUsers.Visibility = Visibility.Collapsed;
         }
@@ -139,33 +148,11 @@ namespace EventApp
             generatedCode.Text = generateNum.ToString();
         }
 
-        //Method to create user
-
-        public void CreateUser(string FirstName, string LastName, string Email, string Allergies, string Discount)
-        {
-            if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
-            {
-                var user = new UserInfo{ FullName=$"{tbFirstName.Text} {tbLastName.Text}", Email = tbEmail.Text, Allergies = "Allergi: " + tbAllergies.Text, DiscountCode = "Rabattkod: " + tbDiscount.Text};
-
-                lvUsers.Items.Add(user);
-
-                tbFirstName.Text = ""; tbLastName.Text = ""; tbEmail.Text = ""; tbAllergies.Text = ""; tbDiscount.Text = "";
-
-                File.AppendAllText("C:\\EventAppDeltagare.txt", tbFirstName.Text);
-
-            }
-
-        }
-
         public void RemoveUser()
-        { 
+        {
 
-            
+
         }
-
-
-
-
-
     }
 }
+
