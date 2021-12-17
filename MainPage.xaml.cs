@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +28,10 @@ namespace EventApp
 
     public sealed partial class MainPage : Page
     {
+        private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+        private StorageFile sampleFile;
+        private string fileContent;
+
         private string ChangeStatusText(savedStatus status)
         {
             switch (status)
@@ -41,16 +47,47 @@ namespace EventApp
             }
     }
 
-        private static List<UserInfo> users = new List<UserInfo>();
-
         public MainPage()
         {
             this.InitializeComponent();
 
-            if (users.Count > 0)
-                lvUsers.ItemsSource = users;
+            Task.Run(async () => await AddFileAsync("users.csv")).Wait();
+
+            if (!string.IsNullOrEmpty(fileContent))
+            {
+                using (StringReader sr = new StringReader(fileContent))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        var values = line.Split(";");
+                        var user = new User { FirstName = values[0], LastName = values[1], Email = values[2], Allergies = values[3], DiscountCode = values [4] };
+                        lvUsers.Items.Add(user);
+                    }
+                }
+            }
 
         }
+
+        private async Task AddFileAsync(string fileName)
+        {
+            try
+            {
+                sampleFile = await storageFolder.GetFileAsync(fileName);
+            }
+            catch
+            {
+                sampleFile = await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            }
+
+            await ReadFileAsync(sampleFile);
+        }
+
+        private async Task ReadFileAsync(StorageFile storageFile)
+        {
+            fileContent = await FileIO.ReadTextAsync(storageFile);
+        }
+
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -60,11 +97,11 @@ namespace EventApp
         }
 
         private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
-        {
 
+        {
             if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
             {
-                users.Add(new UserInfo 
+                lvUsers.Items.Add(new User
                 { 
                     FirstName = tbFirstName.Text, 
                     LastName = tbLastName.Text, 
@@ -73,11 +110,15 @@ namespace EventApp
                     DiscountCode = tbDiscount.Text ?? "" 
                 });
 
-                lvUsers.ItemsSource = users;
 
                 tbFirstName.Text = ""; tbLastName.Text = ""; tbEmail.Text = ""; tbAllergies.Text = ""; tbDiscount.Text = "";
 
             }
+
+            /*foreach (var user in lvUsers.Items)
+            {
+                
+            }*/
 
 
 
@@ -94,9 +135,11 @@ namespace EventApp
         {
 
             var obj = (Button)sender;
-            var item = (UserInfo)obj.DataContext;
+            var item = (User)obj.DataContext;
 
             lvUsers.Items.Remove(item);
+
+            //*lvUsers.Items.Remove(item);
 
             userStatusMessage.Text = ChangeStatusText(savedStatus.Removed);
 

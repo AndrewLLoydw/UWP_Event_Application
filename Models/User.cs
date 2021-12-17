@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace EventApp.Models
 {
-    internal class UserInfo
+    internal class User
     {
-
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
