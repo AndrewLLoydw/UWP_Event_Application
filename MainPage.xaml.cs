@@ -29,7 +29,7 @@ namespace EventApp
     public sealed partial class MainPage : Page
     {
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-        private StorageFile sampleFile ;
+        private StorageFile sampleFile;
         private string fileContent;
 
 
@@ -63,7 +63,9 @@ namespace EventApp
                     while ((line = sr.ReadLine()) != null)
                     {
                         var values = line.Split(";");
+
                         var user = new User { FirstName = values[0], LastName = values[1], Email = values[2], Allergies = values[3], DiscountCode = values [4] };
+     
                         lvUsers.Items.Add(user);
                     }
                 }
@@ -99,7 +101,7 @@ namespace EventApp
 
         }
 
-        private async void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
+        private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
 
         {
             if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
@@ -114,7 +116,11 @@ namespace EventApp
 
                 });
 
-                await FileIO.WriteTextAsync(sampleFile, $"{tbFirstName.Text}{tbLastName.Text}\r\n{tbEmail.Text}\r\n{tbAllergies.Text}\r\n{tbDiscount.Text}");
+                foreach (var user in lvUsers.Items) 
+                {
+
+                    File.AppendAllText(fileContent, $"{tbFirstName.Text}{tbLastName.Text}\r\n{tbEmail.Text}\r\n{tbAllergies.Text}\r\n{tbDiscount.Text}\r\n");
+                }
 
 
                 tbFirstName.Text = ""; tbLastName.Text = ""; tbEmail.Text = ""; tbAllergies.Text = ""; tbDiscount.Text = "";
@@ -135,6 +141,8 @@ namespace EventApp
 
             var obj = (Button)sender;
             var item = (User)obj.DataContext;
+
+            
 
             lvUsers.Items.Remove(item);
             
