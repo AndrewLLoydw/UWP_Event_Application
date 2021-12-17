@@ -29,8 +29,10 @@ namespace EventApp
     public sealed partial class MainPage : Page
     {
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-        private StorageFile sampleFile;
+        private StorageFile sampleFile ;
         private string fileContent;
+
+
 
         private string ChangeStatusText(savedStatus status)
         {
@@ -51,7 +53,7 @@ namespace EventApp
         {
             this.InitializeComponent();
 
-            Task.Run(async () => await AddFileAsync("users.csv")).Wait();
+            Task.Run(async () => await AddFileAsync("Users.csv")).Wait();
 
             if (!string.IsNullOrEmpty(fileContent))
             {
@@ -80,14 +82,15 @@ namespace EventApp
                 sampleFile = await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
             }
 
+
             await ReadFileAsync(sampleFile);
         }
+
 
         private async Task ReadFileAsync(StorageFile storageFile)
         {
             fileContent = await FileIO.ReadTextAsync(storageFile);
         }
-
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -96,33 +99,29 @@ namespace EventApp
 
         }
 
-        private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
+        private async void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
 
         {
             if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
             {
                 lvUsers.Items.Add(new User
-                { 
-                    FirstName = tbFirstName.Text, 
-                    LastName = tbLastName.Text, 
-                    Email = tbEmail.Text, 
-                    Allergies = tbAllergies.Text ?? "", 
-                    DiscountCode = tbDiscount.Text ?? "" 
+                {
+                    FirstName = tbFirstName.Text,
+                    LastName = tbLastName.Text,
+                    Email = tbEmail.Text,
+                    Allergies = tbAllergies.Text ?? "",
+                    DiscountCode = tbDiscount.Text ?? ""
+
                 });
+
+                await FileIO.WriteTextAsync(sampleFile, $"{tbFirstName.Text}{tbLastName.Text}\r\n{tbEmail.Text}\r\n{tbAllergies.Text}\r\n{tbDiscount.Text}");
 
 
                 tbFirstName.Text = ""; tbLastName.Text = ""; tbEmail.Text = ""; tbAllergies.Text = ""; tbDiscount.Text = "";
 
             }
 
-            /*foreach (var user in lvUsers.Items)
-            {
-                
-            }*/
-
-
-
-            userStatusMessage.Text = ChangeStatusText(savedStatus.Added);
+        userStatusMessage.Text = ChangeStatusText(savedStatus.Added);
 
         }
 
@@ -138,8 +137,7 @@ namespace EventApp
             var item = (User)obj.DataContext;
 
             lvUsers.Items.Remove(item);
-
-            //*lvUsers.Items.Remove(item);
+            
 
             userStatusMessage.Text = ChangeStatusText(savedStatus.Removed);
 
@@ -194,12 +192,6 @@ namespace EventApp
             int generateNum = rnd.Next(10000000, 99999999);
 
             generatedCode.Text = generateNum.ToString();
-        }
-
-        public void RemoveUser()
-        {
-
-
         }
     }
 }
