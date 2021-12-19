@@ -53,7 +53,6 @@
             <Button x:Name="btnGenerateCode" Content="Tryck här" Margin="0, 20, 0, 20" Click="btnGenerateCode_Click" Width="250" Height="40" HorizontalAlignment="Center"/>
             <TextBox x:Name="generatedCode" Text="" FontSize="20" HorizontalAlignment="Center" Width="250"/>
             <TextBlock x:Name="userStatusMessage" Text="" FontSize="16" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,100,0,0"/>
-            <Button x:Name="listToFile" Margin="0,20,0,0" Content="Spara ner deltagarlistan som fil" HorizontalAlignment="Center" Click="listToFile_Click" />
         </StackPanel>
 
         <StackPanel x:Name="inputRegisterUser" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" Visibility="Collapsed" Margin="0, 40, 0, 0"  HorizontalAlignment="Center">

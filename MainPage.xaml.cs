@@ -1,6 +1,7 @@
 ﻿using EventApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,7 +32,6 @@ namespace EventApp
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
         private StorageFile sampleFile;
         private string fileContent;
-
 
 
         private string ChangeStatusText(savedStatus status)
@@ -73,6 +73,7 @@ namespace EventApp
             }
 
         }
+        
 
         private async Task AddFileAsync(string fileName)
         {
@@ -90,7 +91,6 @@ namespace EventApp
         }
 
 
-
         private async Task ReadFileAsync(StorageFile storageFile)
         {
             fileContent = await FileIO.ReadTextAsync(storageFile);
@@ -106,8 +106,11 @@ namespace EventApp
         private async void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
 
         {
+            var obj = (Button)sender;
+            var item = (User)obj.DataContext;
+
             if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
-            {
+            {   
                 lvUsers.Items.Add(new User
                 {
                     FirstName = tbFirstName.Text,
@@ -117,7 +120,6 @@ namespace EventApp
                     DiscountCode = tbDiscount.Text ?? ""
 
                 });
-
 
                 await FileIO.AppendTextAsync(sampleFile, $"{tbFirstName.Text}, {tbLastName.Text}, {tbEmail.Text}, {tbAllergies.Text}, {tbDiscount.Text}\r\n");
 
@@ -142,24 +144,10 @@ namespace EventApp
             var obj = (Button)sender;
             var item = (User)obj.DataContext;
 
-
             lvUsers.Items.Remove(item);
 
-
-            
-
-            /*if (item != null)
-            {
-                foreach (var user in lvUsers.Items)
-                {
-                    await FileIO.WriteTextAsync(sampleFile, $"{tbFirstName.Text}, {tbLastName.Text}, {tbEmail.Text}, {tbAllergies.Text}, {tbDiscount.Text}\r\n");
-                }
-            }*/
-
-
-
-
         }
+
 
         private void btnCloseUserInfoLW_Click(object sender, RoutedEventArgs e)
         {
@@ -209,12 +197,6 @@ namespace EventApp
             int generateNum = rnd.Next(10000000, 99999999);
 
             generatedCode.Text = generateNum.ToString();
-        }
-
-        private async void listToFile_Click(object sender, RoutedEventArgs e)
-        {
-
-            
         }
     }
 }
