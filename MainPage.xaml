@@ -53,6 +53,7 @@
             <Button x:Name="btnGenerateCode" Content="Tryck här" Margin="0, 20, 0, 20" Click="btnGenerateCode_Click" Width="250" Height="40" HorizontalAlignment="Center"/>
             <TextBox x:Name="generatedCode" Text="" FontSize="20" HorizontalAlignment="Center" Width="250"/>
             <TextBlock x:Name="userStatusMessage" Text="" FontSize="16" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,100,0,0"/>
+            <Button x:Name="listToFile" Margin="0,20,0,0" Content="Spara ner deltagarlistan som fil" HorizontalAlignment="Center" Click="listToFile_Click" />
         </StackPanel>
 
         <StackPanel x:Name="inputRegisterUser" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" Visibility="Collapsed" Margin="0, 40, 0, 0"  HorizontalAlignment="Center">
@@ -70,40 +71,41 @@
             <Button x:Name="btnRegisterUserDone" Content="Tryck här" Width="250" Height="auto" Margin="0, 40, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="btnRegisterUserDone_Click"/>
         </StackPanel>
 
-        <ListView x:Name="lvUsers" DataContext="EventApp.Models.UserInfo" Grid.Column="1" Grid.Row="2" Grid.RowSpan="5" Visibility="Collapsed" Margin="0,30,0,0" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="6">
+            <ListView x:Name="lvUsers" DataContext="EventApp.Models.UserInfo" Visibility="Collapsed" Margin="0,30,0,0" HorizontalAlignment="Center" Height="auto"> 
 
-            <ListView.ItemTemplate>
-                
-                <DataTemplate>
-                    
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
+                <ListView.ItemTemplate>
 
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" Text="{Binding FullName}" FontSize="16"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Email}" FontWeight="Light"/>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Text="{Binding FullName}" FontSize="16"/>
+                                <TextBlock Grid.Row="1" Text="{Binding Email}" FontWeight="Light" Margin="0,0,0,0"/>
+
+                            </Grid>
+                        
+                            <Button x:Name="btnDeleteUserInfo" Grid.Column="0" Grid.ColumnSpan="2" Content="Ta bort" Margin="500,0,0,0" HorizontalAlignment="Right" Click="btnDeleteUserInfo_Click" VerticalAlignment="Center"/>
 
                         </Grid>
-                        
-                        <Button x:Name="btnDeleteUserInfo" Grid.Column="1" Grid.ColumnSpan="2" Content="Ta bort" Margin="500,0,0,0" HorizontalAlignment="Center" Click="btnDeleteUserInfo_Click" VerticalAlignment="Center"/>
-
-                    </Grid>
                     
-                </DataTemplate>
+                    </DataTemplate>
 
-            </ListView.ItemTemplate>
+                </ListView.ItemTemplate>
             
-        </ListView>
+            </ListView>
+        </StackPanel>
 
     </Grid>
     

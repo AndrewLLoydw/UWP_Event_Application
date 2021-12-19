@@ -62,10 +62,11 @@ namespace EventApp
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        var values = line.Split(";");
+                        var values = line.Split(", ");
 
-                        var user = new User { FirstName = values[0], LastName = values[1], Email = values[2], Allergies = values[3], DiscountCode = values [4] };
-     
+                        var user = new User { FirstName = values[0], LastName = values[1], Email = values[2], Allergies = values[3], DiscountCode = values [4]};
+
+
                         lvUsers.Items.Add(user);
                     }
                 }
@@ -89,6 +90,7 @@ namespace EventApp
         }
 
 
+
         private async Task ReadFileAsync(StorageFile storageFile)
         {
             fileContent = await FileIO.ReadTextAsync(storageFile);
@@ -101,7 +103,7 @@ namespace EventApp
 
         }
 
-        private void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
+        private async void btnRegisterUserDone_Click(object sender, RoutedEventArgs e)
 
         {
             if (!string.IsNullOrEmpty(tbFirstName.Text) && !string.IsNullOrEmpty(tbLastName.Text) && !string.IsNullOrEmpty(tbEmail.Text))
@@ -116,11 +118,9 @@ namespace EventApp
 
                 });
 
-                foreach (var user in lvUsers.Items) 
-                {
 
-                    File.AppendAllText(fileContent, $"{tbFirstName.Text}{tbLastName.Text}\r\n{tbEmail.Text}\r\n{tbAllergies.Text}\r\n{tbDiscount.Text}\r\n");
-                }
+                await FileIO.AppendTextAsync(sampleFile, $"{tbFirstName.Text}, {tbLastName.Text}, {tbEmail.Text}, {tbAllergies.Text}, {tbDiscount.Text}\r\n");
+
 
 
                 tbFirstName.Text = ""; tbLastName.Text = ""; tbEmail.Text = ""; tbAllergies.Text = ""; tbDiscount.Text = "";
@@ -136,18 +136,27 @@ namespace EventApp
             OpenListWindowButton();
         }
 
-        private void btnDeleteUserInfo_Click(object sender, RoutedEventArgs e)
+        private async void btnDeleteUserInfo_Click(object sender, RoutedEventArgs e)
         {
 
             var obj = (Button)sender;
             var item = (User)obj.DataContext;
 
-            
 
             lvUsers.Items.Remove(item);
+
+
             
 
-            userStatusMessage.Text = ChangeStatusText(savedStatus.Removed);
+            /*if (item != null)
+            {
+                foreach (var user in lvUsers.Items)
+                {
+                    await FileIO.WriteTextAsync(sampleFile, $"{tbFirstName.Text}, {tbLastName.Text}, {tbEmail.Text}, {tbAllergies.Text}, {tbDiscount.Text}\r\n");
+                }
+            }*/
+
+
 
 
         }
@@ -200,6 +209,12 @@ namespace EventApp
             int generateNum = rnd.Next(10000000, 99999999);
 
             generatedCode.Text = generateNum.ToString();
+        }
+
+        private async void listToFile_Click(object sender, RoutedEventArgs e)
+        {
+
+            
         }
     }
 }
